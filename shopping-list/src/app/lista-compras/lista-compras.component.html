@@ -1,8 +1,8 @@
 <div class="container">
     <h1>Lista de compras</h1>
 
-    <form action="" class="add-item-form">
-        <input type="text" id="item" placeholder="Digite o nome do item">
+    <form #forms="ngForm" action="" class="add-item-form" (ngSubmit)="adicionarItemLista()">
+        <input type="text" id="item" placeholder="Digite o nome do item" name="item" [(ngModel)]="item">
         <button type="submit">Adicionar</button>
     </form>
 
@@ -15,16 +15,17 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>Arroz</td>
-                <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Feijão</td>
-                <td><input type="checkbox"></td>
-            </tr>
+            @for (item of listaDeItens; track item.id) {
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.nome }}</td>
+                    <td><input type="checkbox" [(ngModel)]="item.comprado"></td>
+                </tr>
+            } @empty {
+                <tr>
+                    <td colspan="3">Nenhum item adicionado.</td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>
